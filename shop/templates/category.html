@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}{{category.capitalize}}{% endblock %}
+
+
+{% block content %}
+{% if category == 'sport' %}
+    <ul>
+        <li>Item1</li>
+        <li>Item2</li>
+    </ul>
+{% endif %}
+{% endblock %}
