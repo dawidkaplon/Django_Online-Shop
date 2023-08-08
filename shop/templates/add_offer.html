@@ -2,6 +2,12 @@
 
 {% block title %}Add an Offer{% endblock %}
 
+<!-- {% load crispy_forms_tags %} -->
 
 {% block content %}
-
+<form method="post" style="margin: 50px 250px;">
+    {% csrf_token %}
+    {{form|crispy}}
+    <button class="btn btn-outline-dark" type="submit" name="add" value="add">Add an offer</button>
+</form>
+{% endblock %}
