@@ -5,9 +5,23 @@
 
 {% block content %}
 {% if category == 'sport' %}
-    <ul>
-        <li>Item1</li>
-        <li>Item2</li>
-    </ul>
+    {% for item in sport_items %}
+    <p><a href="/offer/{{item.id}}">{{item.name}}, {{item.id}}</a></p>
+    {% endfor %}
+{% endif %}
+{% if category == 'electronics' %}
+    {% for item in electronics_items %}
+    <p><a href="/offer/{{item.id}}">{{item.name}}, {{item.id}}</a></p>
+    {% endfor %}
+{% endif %}
+{% if category == 'fashion' %}
+    {% for item in fashion_items %}
+    <p><a href="/offer/{{item.id}}">{{item.name}}, {{item.id}}</a></p>
+    {% endfor %}
+{% endif %}
+{% if category == 'automobile' %}
+    {% for item in automobile_items %}
+    <p><a href="/offer/{{item.id}}">{{item.name}}, {{item.id}}</a></p>
+    {% endfor %}
 {% endif %}
 {% endblock %}

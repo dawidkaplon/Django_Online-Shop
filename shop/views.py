@@ -11,7 +11,16 @@ def error404(request):
     return render(request, 'error.html')
 
 def category(request, category):
-    return render(request, 'category.html', {'category': category})
+    sport_items = Item.objects.filter(category='Sport')
+    fashion_items = Item.objects.filter(category='Fashion')
+    electronics_items = Item.objects.filter(category='Electronics')
+    automobile_items = Item.objects.filter(category='Automobile')
+    
+    return render(request, 'category.html', 
+                  {
+        'category': category, 'sport_items': sport_items, 'fashion_items': fashion_items,
+        'electronics_items': electronics_items, 'automobile_items': automobile_items
+        })
 
 def add_offer(request):
     form = NewOfferForm()
@@ -25,7 +34,11 @@ def add_offer(request):
             category = NewOfferForm.CATEGORIES[int(categ_num) - 1][1]
             item = Item(name=name, description=description, price=price, category=category)
             item.save()
-            form = NewOfferForm()
+            return redirect(f'/offer/{item.id}')
         else:
             form = NewOfferForm()
     return render(request, 'add_offer.html', {'form': form})
+
+def view(request, id):
+    item = Item.objects.get(id=id)
+    return render(request, 'view.html', {'item': item})
