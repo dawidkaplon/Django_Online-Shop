@@ -13,3 +13,4 @@ class NewOfferForm(forms.Form):
     description = forms.CharField()
     price = forms.DecimalField(decimal_places=2, widget=forms.NumberInput)
     category = forms.ChoiceField(choices=CATEGORIES, widget=forms.RadioSelect)
+    image = forms.ImageField()
