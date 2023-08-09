@@ -8,6 +8,7 @@ class Item(models.Model):
     description = models.TextField(default='')
     price = models.FloatField()
     category = models.TextField(default='')
+    image = models.ImageField(upload_to='item_images/')
 
     def __str__(self):
         return self.name
