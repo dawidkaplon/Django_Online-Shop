@@ -5,7 +5,7 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<form method="post" style="margin: 50px 250px;" enctype="multipart/form-data">
+<form method="post" style="margin: 50px 250px;">
     {% csrf_token %}
     {{form|crispy}}
     <button class="btn btn-outline-primary" type="submit" name="add" value="add">Add an offer</button>

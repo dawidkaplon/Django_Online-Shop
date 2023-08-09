@@ -25,17 +25,14 @@ def category(request, category):
 def add_offer(request):
     form = NewOfferForm()
     if request.method == 'POST':
-        form = NewOfferForm(request.POST, request.FILES)
-
+        form = NewOfferForm(request.POST)
         if form.is_valid():
             name = form.cleaned_data['name']
             description = form.cleaned_data['description']
             price = form.cleaned_data['price']
             categ_num = form.cleaned_data['category']
             category = NewOfferForm.CATEGORIES[int(categ_num) - 1][1]
-            image = request.FILES.get('image')
-            item = Item(name=name, description=description, price=price, category=category, image=image)
-            print(item.image.url)
+            item = Item(name=name, description=description, price=price, category=category)
             item.save()
             return redirect(f'/offer/{item.id}')
         else:
@@ -44,4 +41,4 @@ def add_offer(request):
 
 def view(request, id):
     item = Item.objects.get(id=id)
-    return render(request, 'item_details.html', {'item': item})
+    return render(request, 'view.html', {'item': item})
