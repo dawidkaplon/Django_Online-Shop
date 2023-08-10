@@ -4,7 +4,8 @@ from django.contrib.auth.models import User
 
 
 class Item(models.Model):
-    name = models.CharField(max_length=255, default='')
+    user = models.ForeignKey(User, default=1, null=True, on_delete=models.SET_NULL)
+    name = models.CharField(max_length=50, default='')
     description = models.TextField(default='')
     price = models.FloatField()
     category = models.TextField(default='')
@@ -12,4 +13,3 @@ class Item(models.Model):
 
     def __str__(self):
         return self.name
-

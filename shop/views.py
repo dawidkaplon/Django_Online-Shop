@@ -26,15 +26,15 @@ def add_offer(request):
     form = NewOfferForm()
     if request.method == 'POST':
         form = NewOfferForm(request.POST, request.FILES)
-
         if form.is_valid():
+            user = request.user
             name = form.cleaned_data['name']
             description = form.cleaned_data['description']
             price = form.cleaned_data['price']
             categ_num = form.cleaned_data['category']
             category = NewOfferForm.CATEGORIES[int(categ_num) - 1][1]
             image = request.FILES.get('image')
-            item = Item(name=name, description=description, price=price, category=category, image=image)
+            item = Item(user=user, name=name, description=description, price=price, category=category, image=image)
             print(item.image.url)
             item.save()
             return redirect(f'/offer/{item.id}')
