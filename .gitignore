@@ -1,3 +1,4 @@
 item_images
 .vscode
-*.sqlite3
+db.sqlite3
+media

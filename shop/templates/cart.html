@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Your Cart</h1>
+
+{% if cart_items %}
+<ul>
+    <form method="POST">
+        {% csrf_token %}
+        {% for cart_item in cart_items %}
+        <li>
+            {{ cart_item.item.name }} - Quantity: {{ cart_item.quantity }}
+            <button type="submit" name="{{ cart_item.item.name }}_remove"
+                class="btn btn-outline-primary">Remove</button>
+        </li>
+        {% endfor %}
+    </form>
+</ul>
+{% else %}
+<p>Your cart is empty.</p>
+{% endif %}
+
+<a href="{% url 'index' %}">Continue Shopping</a>
+{% endblock %}
