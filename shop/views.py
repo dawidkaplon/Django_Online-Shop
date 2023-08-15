@@ -1,5 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import Http404
 
 from .forms import NewOfferForm
 from .models import Item, Cart, CartItem
@@ -61,8 +64,10 @@ def view(request, id):
             cart = Cart(user=user, total=0, quantity=0)
             cart.save()
 
-        cart_item = CartItem(cart=cart, item=item, quantity=1)  # You need to define CartItem model
+        cart_item = CartItem(cart=cart, item=item, quantity=1, image=item.image, price=item.price)
         cart_item.save()
+        cart.total += item.price
+        cart.save()
         return redirect('/cart/')
 
     return render(request, 'item_details.html', {'item': item})
@@ -80,8 +85,41 @@ def cart(request):
     if request.method == 'POST':
         for cart_item in cart_items:
             item_name_remove = f'{cart_item.item.name}_remove'
+            item_name_save = f'{cart_item.item.name}_save'
+            item_quantity = f'{cart_item.item.name}_quantity'
+            
             if item_name_remove in request.POST:
+                # cart.total = 0
                 cart_item.delete()
+                cart.total -= cart_item.price * cart_item.quantity
+                cart.save()
                 return redirect('/cart/')
+            
+            if item_name_save in request.POST:
+                if int(request.POST.get(item_quantity)) < 0:
+                    pass
+                elif int(request.POST.get(item_quantity)) >= 0:
+                    if cart_item.quantity < int(request.POST.get(item_quantity)):
+                        cart.total += cart_item.price * (int(request.POST.get(item_quantity)) - cart_item.quantity)
+                    elif cart_item.quantity > int(request.POST.get(item_quantity)):
+                        cart.total -= cart_item.price * (cart_item.quantity - int(request.POST.get(item_quantity)))    
+                    cart.save()
+                    cart_item.quantity = request.POST.get(item_quantity)
+                    cart_item.save()
 
+                if int(cart_item.quantity) == 0:
+                    cart_item.delete()
+                    cart.save()
+                    return redirect('/cart/')
+                
     return render(request, 'cart.html', {'cart': cart, 'cart_items': cart_items})
+
+def user_view(request, id): 
+    current_user = request.user
+    
+    try:
+        user = User.objects.get(id=id)
+        items = Item.objects.filter(user=user)
+        return render(request, 'user.html', {'user': user, 'current_user': current_user, 'items': items})
+    except ObjectDoesNotExist:
+        raise Http404

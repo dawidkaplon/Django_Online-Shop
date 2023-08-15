@@ -15,7 +15,9 @@
         </div>
         <div class="col-md-6">
             <div class="item-info">
-                <div class="company-name">by: {{ item.user }}</div>
+                <div class="company-name">
+                    <a href='/user/{{item.user.id}}' class="card-text item-description">by: {{ item.user }}</a>
+                </div>
                 <div class="divider"></div>
                 <div class="item-price">${{ item.price }}</div>
                 <div class="divider"></div>

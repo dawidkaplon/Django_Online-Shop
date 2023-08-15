@@ -18,11 +18,12 @@ class Item(models.Model):
 
 class Cart(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    total = models.DecimalField(max_digits=9, decimal_places=2)
+    total = models.FloatField()
     quantity = models.IntegerField()
-
 
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
+    image = models.ImageField(upload_to='item_images/')
+    price = models.FloatField()

@@ -9,12 +9,12 @@
         <div class="col">
             <div class="card shadow-sm">
                 <div class="card-img-container">
-                    <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }}">
+                    <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }}" style="height: 180px;">
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">{{ item.name }}</h5>
                     <p class="card-text item-price">${{ item.price }}</p>
-                    <p class="card-text item-description">by: {{ item.user }}</p>
+                    <a href='/user/{{item.user.id}}' class="card-text item-description">by: {{ item.user }}</a>
                     <a href="/offer/{{ item.id }}" class="btn btn-outline-primary">VISIT</a>
                 </div>
             </div>
@@ -28,12 +28,12 @@
         <div class="col">
             <div class="card shadow-sm">
                 <div class="card-img-container">
-                    <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }}">
+                    <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }}" style="height: 180px;">
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">{{ item.name }}</h5>
                     <p class="card-text item-price">${{ item.price }}</p>
-                    <p class="card-text item-description">by: {{ item.user }}</p>
+                    <a href='/user/{{item.user.id}}' class="card-text item-description">by: {{ item.user }}</a>
                     <a href="/offer/{{ item.id }}" class="btn btn-outline-primary">VISIT</a>
                 </div>
             </div>
@@ -47,12 +47,12 @@
         <div class="col">
             <div class="card shadow-sm">
                 <div class="card-img-container">
-                    <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }}">
+                    <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }}" style="height: 180px;">
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">{{ item.name }}</h5>
                     <p class="card-text item-price">${{ item.price }}</p>
-                    <p class="card-text item-description">by: {{ item.user }}</p>
+                    <a href='/user/{{item.user.id}}' class="card-text item-description">by: {{ item.user }}</a>
                     <a href="/offer/{{ item.id }}" class="btn btn-outline-primary">VISIT</a>
                 </div>
             </div>
@@ -66,12 +66,12 @@
         <div class="col">
             <div class="card shadow-sm">
                 <div class="card-img-container">
-                    <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }}">
+                    <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }}" style="height: 180px;">
                     <p class="item-price">${{ item.price }}</p>
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">{{ item.name }}</h5>
-                    <p class="card-text item-description">by: {{ item.user }}</p>
+                    <a href='/user/{{item.user.id}}' class="card-text item-description">by: {{ item.user }}</a>
                     <a href="/offer/{{ item.id }}" class="btn btn-outline-primary">VISIT</a>
                 </div>
             </div>
@@ -85,6 +85,7 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    margin-top: 25px;
 }
 
 .card-img-container {
@@ -126,7 +127,6 @@
 .item-description {
     text-align: center;
 }
-
 </style>
 
 {% endblock %}

@@ -1,24 +1,51 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Your Cart</h1>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Your Cart</h1>
 
-{% if cart_items %}
-<ul>
-    <form method="POST">
+    {% if cart_items %}
+    <form method="POST" class="col-md-8 mx-auto">
         {% csrf_token %}
         {% for cart_item in cart_items %}
-        <li>
-            {{ cart_item.item.name }} - Quantity: {{ cart_item.quantity }}
-            <button type="submit" name="{{ cart_item.item.name }}_remove"
-                class="btn btn-outline-primary">Remove</button>
-        </li>
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="{{ cart_item.image.url }}" alt="Item Image" class="img-fluid card-img" style="height: 180px;">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ cart_item.item.name }}</h5>
+                        <div class="input-group mb-3">
+                            <button type="submit" name="{{ cart_item.item.name }}_save" class="btn btn-outline-success" style="text-align: end;">Save</button>
+                            <input type="number" name="{{ cart_item.item.name }}_quantity" class="form-control" value="{{ cart_item.quantity }}">
+                            <button type="submit" name="{{ cart_item.item.name }}_remove" class="btn btn-outline-danger">Remove</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         {% endfor %}
     </form>
-</ul>
-{% else %}
-<p>Your cart is empty.</p>
-{% endif %}
+    <div class="col-md-8 mx-auto text-end">
+        <h4>Total: ${{ cart.total|floatformat:2 }}</h4>
+    </div>
+    {% else %}
+    <p class="text-center">Your cart is empty.</p>
+    {% endif %}
+</div>
 
-<a href="{% url 'index' %}">Continue Shopping</a>
+<div class="container text-center mt-4">
+    <a href="/category/automobile" class="btn btn-outline-primary buy-button">Continue Shopping</a>
+    {% if not cart_items|length == 0 %}
+    <button type="button" class="btn btn-primary buy-button">Buy and Pay</button>
+    {% endif %}
+</div>
+
+<style>
+    .buy-button {
+    font-size: 1.1rem;
+    width: 180px;
+    }
+</style>
 {% endblock %}

@@ -12,5 +12,6 @@ urlpatterns = [
     path('category/sport/', views.category, {'category': 'sport'}, name='sport'),
     path('category/automobile/', views.category,
          {'category': 'automobile'}, name='automobile'),
-    path('cart/', views.cart, name='cart')
+    path('cart/', views.cart, name='cart'),
+    path('user/<int:id>', views.user_view, name='view'),
 ]

@@ -1,12 +1,23 @@
 {% extends 'base.html' %}
 
-
 {% block title %}
 Homepage
 {% endblock %}
-</title>
-
 
 {% block content %}
-<h5 style="text-align: center;">Hello there</h5>
+<div class="container" style="margin-top: 2%;">
+    <div class="jumbotron text-center">
+        <h1 class="display-2">Everything is smart nowadays.</h1>
+        <p class="lead">Welcome to SmartShop</p>
+        {% if not user.is_authenticated %}
+        <a class="btn btn-primary btn-lg" href="/login/" role="button">Login</a>
+        <a class="btn btn-secondary btn-lg" href="/register/" role="button">Register</a>
+        {% else %}
+        <a class="btn btn-primary btn-lg" href="#" role="button">Explore</a>
+        <a class="btn btn-secondary btn-lg" href="/logout" role="button">Logout</a>
+        {% endif %}
+    </div>
+    <p class="jumbotron text-center" style="margin-top: 10px;">Explore the world of smart shopping!</p>
+</div>
+
 {% endblock %}
