@@ -6,14 +6,15 @@
 
 
 {% block content %}
-
-<form method="POST" class="form-group">
-    {{ form|crispy }}
-    {% csrf_token %}
-    <div style="font-size: small;">
-        Already have an account? <a href="/login">Login here</a>
-    </div>
-    <br><button type="submit" class="btn btn-secondary">Register</button>
-</form>
+<div class="d-flex justify-content-center align-items-center">
+    <form method="POST" class="form-group" style="width: 40%; margin-top: 15px;">
+        {{ form|crispy }}
+        {% csrf_token %}
+        <div style="font-size: medium; margin-top: 5px;">
+            Already have an account? <a href="/login">Login here</a>
+        </div>
+        <br><button type="submit" class="btn btn-secondary">Register</button>
+    </form>
+</div>
     
 {% endblock %}

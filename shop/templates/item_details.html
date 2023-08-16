@@ -23,10 +23,16 @@
                 <div class="divider"></div>
                 <form method="post">
                     {% csrf_token %}
+                    {% if not item.user == request.user %}
                     <div class="buttons">
-                        <button class="btn btn-primary" name="add">Add to Cart</button>
-                        <button class="btn btn-outline-primary" name="buy">Buy Now</button>
+                        <button class="btn btn-warning" name="add">Add to Cart</button>
+                        <button class="btn btn-outline-warning" name="buy">Buy Now</button>
                     </div>
+                    {% else %}
+                    <div class="buttons">
+                    <button class="btn btn-warning" name="edit">Edit an Offer</button>
+                    </div>
+                    {% endif %}
                 </form>
             </div>
         </div>
@@ -97,6 +103,7 @@
         border-radius: 10px;
         box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
         color: white;
+        margin-bottom: 25px;
     }
 
     .item-description {

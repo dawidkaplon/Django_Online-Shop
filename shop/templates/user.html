@@ -1,25 +1,41 @@
 {% extends 'base.html' %}
 
-{% block title %}{{user.username}}{% endblock %}
-
+{% block title %}{{ user.username }}'s Profile{% endblock %}
 
 {% block content %}
-<div class="row row-cols-1 row-cols-md-4 g-4">
-    {% for item in items %}
-        <div class="col">
-            <div class="card shadow-sm">
-                <div class="card-img-container">
-                    <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }}" style="height: 180px;">
-                    <p class="item-price">${{ item.price }}</p>
+<div class="profile-container">
+    <div class="profile-header">
+        {% if user == request.user %}
+            <h1 class="display-5">Your Offers</h1>
+        {% else %}
+            <h1 class="display-5">{{ user.username }}'s Offers</h1>
+        {% endif %}
+    </div>
+
+    <div class="offers-section">
+        <div class="row row-cols-1 row-cols-md-4 g-4">
+            {% for item in items %}
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <div class="card-img-container">
+                            <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }}" style="height: 180px;">
+                            <p class="item-price">${{ item.price }}</p>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ item.name }}</h5>
+                            <p class="card-text item-description">Offered by: {{ user.username }}</p>
+                            {% if item.user == request.user %}
+                            <a href="/offer/{{ item.id }}/edit" class="btn btn-outline-warning">EDIT</a>
+                            <a href="/offer/{{ item.id }}" class="btn btn-warning">VISIT</a>
+                            {% else %}
+                            <a href="/offer/{{ item.id }}" class="btn btn-warning">VISIT</a>
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <h5 class="card-title">{{ item.name }}</h5>
-                    <p class="card-text item-description">by: {{ item.user }}</p>
-                    <a href="/offer/{{ item.id }}" class="btn btn-outline-primary">VISIT</a>
-                </div>
-            </div>
+            {% endfor %}
         </div>
-    {% endfor %}
+    </div>
 </div>
 
 <style>
@@ -70,6 +86,16 @@
         text-align: center;
     }
     
-    </style>
-{% endblock %}
+    .profile-container {
+        padding: 20px;
+    }
 
+    .profile-header {
+        text-align: center;
+    }
+
+    .offers-section {
+        margin-top: 10px;
+    }
+</style>
+{% endblock %}
