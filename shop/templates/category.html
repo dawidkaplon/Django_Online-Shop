@@ -6,7 +6,7 @@
 {% if category == 'sport' %}
 <div class="row row-cols-1 row-cols-md-4 g-4">
     {% if sport_items|length == 0 %}
-    <div class="col-12 text-center" style="margin-left: 35%; margin-top: 3%;">
+    <div class="col-12 text-center" style="margin-left: 37%; margin-top: 3%;">
         <h1>Oops, nothing in there!  </h1>
         <p><a href="/category/choose" class="btn btn-warning explore-button">Explore</a></p>
     </div>
@@ -35,7 +35,7 @@
 {% if category == 'electronics' %}
 <div class="row row-cols-1 row-cols-md-4 g-4">
     {% if electronics_items|length == 0 %}
-    <div class="col-12 text-center" style="margin-left: 35%; margin-top: 3%;">
+    <div class="col-12 text-center" style="margin-left: 37%; margin-top: 3%;">
         <h1>Oops, nothing in there!  </h1>
         <p><a href="/category/choose" class="btn btn-warning explore-button">Explore</a></p>
     </div>
@@ -64,7 +64,7 @@
 {% if category == 'fashion' %}
 <div class="row row-cols-1 row-cols-md-4 g-4">
     {% if fashion_items|length == 0 %}
-    <div class="col-12 text-center" style="margin-left: 35%; margin-top: 3%;">
+    <div class="col-12 text-center" style="margin-left: 37%; margin-top: 3%;">
         <h1>Oops, nothing in there!  </h1>
         <p><a href="/category/choose" class="btn btn-warning explore-button">Explore</a></p>
     </div>
@@ -93,7 +93,7 @@
 {% if category == 'automobile' %}
 <div class="row row-cols-1 row-cols-md-4 g-4">
     {% if automobile_items|length == 0 %}
-    <div class="col-12 text-center" style="margin-left: 35%; margin-top: 3%;">
+    <div class="col-12 text-center" style="margin-left: 37%; margin-top: 3%;">
         <h1>Oops, nothing in there!  </h1>
         <p><a href="/category/choose" class="btn btn-warning explore-button">Explore</a></p>
     </div>
@@ -183,6 +183,13 @@
 .user-link:hover {
     color: orange; /* Change this to your desired hover color */
 }
+
+.explore-button {
+    font-size: 1.2rem;
+    width: 280px;
+    margin-top: 10px;
+}
+
 </style>
 
 {% endblock %}

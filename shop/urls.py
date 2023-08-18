@@ -16,4 +16,5 @@ urlpatterns = [
         {"category": "automobile"}, name="automobile"),
     path("cart/", views.cart, name="cart"),
     path("user/<int:id>", views.user_view, name="view"),
+    path("search/results", views.search_results, name="search_results")
 ]

@@ -178,3 +178,15 @@ def user_view(request, id):
     
 def category_list(request):
     return render(request, 'category_list.html')
+
+def search_results(request):
+    searched = request.POST['searched']
+    items = Item.objects.all()
+    if request.method == 'POST':
+        items_list = []
+        for item in items:
+            if searched.lower() in item.name.lower():
+                items_list.append(item)
+        return render(request, 'search_results.html', {'searched': searched, 'items_list':items_list})
+    else:
+        return render(request, 'search_results.html')

@@ -46,14 +46,15 @@
   <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary" style="font-size: 1.5rem;">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/" style="color: orange; font-size: 2.3rem; padding-left: 35px;">SmartShop</a>
+            <a class="navbar-brand" href="/" style="color: orange; font-size: 2.3rem; padding-left: 50px;">SmartShop</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarScroll" aria-controls="navbarScroll"
                 aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <form class="d-flex me-auto" role="search" style="margin-top: 10px; margin-left: 25px;">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+            <form class="d-flex me-auto" method="POST" action="{% url 'search_results' %}" role="search" style="margin-top: 10px; margin-left: 25px;">
+                {% csrf_token %}
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searched"
                     style="width: 355px;">
                 <button class="btn btn-warning" type="submit" style="width: 85px;">Search</button>
             </form>
@@ -94,9 +95,10 @@
 
   <hr class="navbar-divider">
 
-  <nav class="navbar navbar-expand-lg bg-body-tertiary" style="font-size: large; padding-left: 35px; padding-bottom: 10px;">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary" style="font-size: large; padding-left: 45px; padding-bottom: 10px;">
     <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarScroll">
+            {% if user.is_authenticated %}
             <ul class="navbar-nav my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -114,8 +116,9 @@
                     </ul>
                 </li>
             </ul>
+            {% endif %}
         </div>
-        <a id="theme-toggle" href="#" class="nav-link" style="margin-right: 30px;">
+        <a id="theme-toggle" href="#" class="nav-link" style="margin-right: 70px;">
           <i id="theme-icon" class="bi bi-moon"></i>
       </a>
     </div>
