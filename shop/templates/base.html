@@ -28,6 +28,10 @@
             margin: 0;
         }
 
+        .navbar-nav > .nav-item > .nav-link:hover {
+        color: orange;
+    }
+
     </style>
  
     <!-- Bootstrap 5 -->
@@ -77,10 +81,10 @@
                     </li>
                     {% else %}
                     <li class="nav-item">
-                        <a class="nav-link active" href="/login" style="border: 3px solid orange; border-radius: 15px; padding: 5px; margin-right: 10px;">Log In</a>
+                        <a class="nav-link active" href="/login" style="margin-right: 10px;">Log In</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="/register/" style="border: 3px solid orange; border-radius: 15px; padding: 5px; margin-right: 10px;">Get Started</a>
+                        <a class="nav-link active" href="/register/">Get Started➔</a>
                     </li>
                     {% endif %}
                 </ul>

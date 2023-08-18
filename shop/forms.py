@@ -32,8 +32,13 @@ class EditOfferForm(forms.Form):
     def __init__(self, *args, **kwargs):
         item = kwargs.pop("item", None)
         super(EditOfferForm, self).__init__(*args, **kwargs)
+        self.fields['name'].required = False
+        self.fields['description'].required = False
+        self.fields['price'].required = False
+        self.fields['category'].required = False
+        
 
         if item:
             self.fields["name"].widget.attrs["placeholder"] = item.name
             self.fields["description"].widget.attrs["placeholder"] = item.description
-            self.fields["price"].widget.attrs["placeholder"] = item.price
+            self.fields["price"].widget.attrs["placeholder"] = item.price 

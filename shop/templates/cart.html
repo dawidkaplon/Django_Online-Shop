@@ -21,6 +21,10 @@
                             <input type="number" name="{{ cart_item.item.name }}_quantity" class="form-control" value="{{ cart_item.quantity }}">
                             <button type="submit" name="{{ cart_item.item.name }}_remove" class="btn btn-outline-danger">Remove</button>
                         </div>
+                        <a href="/user/{{ cart_item.user.id }}" class="user-link">
+                            <span>Offered by:</span>
+                            <span>{{ cart_item.user }}</span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -46,6 +50,23 @@
     .buy-button {
     font-size: 1.1rem;
     width: 180px;
+    
+    }
+
+    .user-link {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: gainsboro;
+        transition: color 0.3s;
+    }
+    
+    .user-link span:first-child {
+        margin-right: 5px;
+    }
+    
+    .user-link:hover {
+        color: orange; /* Change this to your desired hover color */
     }
 </style>
 {% endblock %}

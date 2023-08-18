@@ -5,25 +5,41 @@
 {% block content %}
 {% if category == 'sport' %}
 <div class="row row-cols-1 row-cols-md-4 g-4">
-    {% for item in sport_items %}
-        <div class="col">
-            <div class="card shadow-sm">
-                <div class="card-img-container">
-                    <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }}" style="height: 180px;">
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">{{ item.name }}</h5>
-                    <p class="card-text item-price">${{ item.price }}</p>
-                    <a href='/user/{{item.user.id}}' class="card-text item-description">by: {{ item.user }}</a>
-                    <a href="/offer/{{ item.id }}" class="btn btn-warning">VISIT</a>
+    {% if sport_items|length == 0 %}
+    <div class="col-12 text-center" style="margin-left: 35%; margin-top: 3%;">
+        <h1>Oops, nothing in there!  </h1>
+        <p><a href="/category/choose" class="btn btn-warning explore-button">Explore</a></p>
+    </div>
+    {% else %}
+        {% for item in sport_items %}
+            <div class="col">
+                <div class="card shadow-sm">
+                    <div class="card-img-container">
+                        <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }}" style="height: 180px;">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.name }}</h5>
+                        <p class="card-text item-price">${{ item.price }}</p>
+                        <a href="/user/{{ item.user.id }}" class="user-link">
+                            <span>Offered by:</span>
+                            <span>{{ item.user }}</span>
+                        </a>
+                        <a href="/offer/{{ item.id }}" class="btn btn-warning">VISIT</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
+    {% endif %}
 </div>
 {% endif %}
 {% if category == 'electronics' %}
 <div class="row row-cols-1 row-cols-md-4 g-4">
+    {% if electronics_items|length == 0 %}
+    <div class="col-12 text-center" style="margin-left: 35%; margin-top: 3%;">
+        <h1>Oops, nothing in there!  </h1>
+        <p><a href="/category/choose" class="btn btn-warning explore-button">Explore</a></p>
+    </div>
+    {% else %}
     {% for item in electronics_items %}
         <div class="col">
             <div class="card shadow-sm">
@@ -33,16 +49,26 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ item.name }}</h5>
                     <p class="card-text item-price">${{ item.price }}</p>
-                    <a href='/user/{{item.user.id}}' class="card-text item-description">by: {{ item.user }}</a>
+                    <a href="/user/{{ item.user.id }}" class="user-link">
+                        <span>Offered by:</span>
+                        <span>{{ item.user }}</span>
+                    </a>
                     <a href="/offer/{{ item.id }}" class="btn btn-warning">VISIT</a>
                 </div>
             </div>
         </div>
     {% endfor %}
+    {% endif %}
 </div>
 {% endif %}
 {% if category == 'fashion' %}
 <div class="row row-cols-1 row-cols-md-4 g-4">
+    {% if fashion_items|length == 0 %}
+    <div class="col-12 text-center" style="margin-left: 35%; margin-top: 3%;">
+        <h1>Oops, nothing in there!  </h1>
+        <p><a href="/category/choose" class="btn btn-warning explore-button">Explore</a></p>
+    </div>
+    {% else %}
     {% for item in fashion_items %}
         <div class="col">
             <div class="card shadow-sm">
@@ -52,16 +78,26 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ item.name }}</h5>
                     <p class="card-text item-price">${{ item.price }}</p>
-                    <a href='/user/{{item.user.id}}' class="card-text item-description">by: {{ item.user }}</a>
+                    <a href="/user/{{ item.user.id }}" class="user-link">
+                        <span>Offered by:</span>
+                        <span>{{ item.user }}</span>
+                    </a>
                     <a href="/offer/{{ item.id }}" class="btn btn-warning">VISIT</a>
                 </div>
             </div>
         </div>
     {% endfor %}
+    {% endif %}
 </div>
 {% endif %}
 {% if category == 'automobile' %}
 <div class="row row-cols-1 row-cols-md-4 g-4">
+    {% if automobile_items|length == 0 %}
+    <div class="col-12 text-center" style="margin-left: 35%; margin-top: 3%;">
+        <h1>Oops, nothing in there!  </h1>
+        <p><a href="/category/choose" class="btn btn-warning explore-button">Explore</a></p>
+    </div>
+    {% else %}
     {% for item in automobile_items %}
         <div class="col">
             <div class="card shadow-sm">
@@ -71,12 +107,16 @@
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">{{ item.name }}</h5>
-                    <a href='/user/{{item.user.id}}' class="card-text item-description">by: {{ item.user }}</a>
+                    <a href="/user/{{ item.user.id }}" class="user-link">
+                        <span>Offered by:</span>
+                        <span>{{ item.user }}</span>
+                    </a>
                     <a href="/offer/{{ item.id }}" class="btn btn-warning">VISIT</a>
                 </div>
             </div>
         </div>
     {% endfor %}
+    {% endif %}
 </div>
 {% endif %}
 
@@ -126,6 +166,22 @@
 
 .item-description {
     text-align: center;
+}
+
+.user-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: color 0.3s;
+    margin-left: 30%;
+}
+
+.user-link span:first-child {
+    margin-right: 5px;
+}
+
+.user-link:hover {
+    color: orange; /* Change this to your desired hover color */
 }
 </style>
 

@@ -8,7 +8,7 @@ class Item(models.Model):
     user = models.ForeignKey(User, default=1, null=True, on_delete=models.SET_NULL)
     name = models.CharField(max_length=50, default="")
     description = models.TextField(default="")
-    price = models.FloatField()
+    price = models.FloatField(null=True, blank=True)
     category = models.TextField(default="")
     image = models.ImageField(upload_to="item_images/")
 
@@ -28,3 +28,4 @@ class CartItem(models.Model):
     quantity = models.IntegerField(default=1)
     image = models.ImageField(upload_to="item_images/")
     price = models.FloatField()
+    user = models.ForeignKey(User, default=1, null=True, on_delete=models.SET_NULL)

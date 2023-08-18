@@ -11,6 +11,9 @@
             <h1 class="display-5">{{ user.username }}'s Offers</h1>
         {% endif %}
     </div>
+    {% if items|length == 0 %}
+        <h4 style="text-align: center; margin-top: 40px;">List is empty!</h4>
+    {% endif %}
 
     <div class="offers-section">
         <div class="row row-cols-1 row-cols-md-4 g-4">
@@ -20,6 +23,12 @@
                         <div class="card-img-container">
                             <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }}" style="height: 180px;">
                             <p class="item-price">${{ item.price }}</p>
+                            {% if item.user == request.user %}
+                            <form method="POST">
+                                {% csrf_token %}
+                                    <button class="btn btn-danger remove-button" name="{{item.id}}_remove">Remove offer</button>
+                            </form>
+                            {% endif %}
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">{{ item.name }}</h5>
@@ -96,6 +105,17 @@
 
     .offers-section {
         margin-top: 10px;
+    }
+    
+    .remove-button {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 2;
+    }
+
+    .remove-button:hover {
+        color: black;
     }
 </style>
 {% endblock %}
