@@ -171,7 +171,10 @@ def user_view(request, id):
                     item.delete()
                     return redirect(f'/user/{user.id}')
         
-        return render(request, 'user.html', {'user': user, 'current_user': current_user, 'items': items})
+        if request.user.is_authenticated:
+            return render(request, 'user.html', {'user': user, 'current_user': current_user, 'items': items})
+        else:
+            return redirect('/404/')
     
     except ObjectDoesNotExist:
         raise Http404
