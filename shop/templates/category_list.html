@@ -3,6 +3,7 @@
 {% block title %}Categories{% endblock %}
 
 {% block content %}
+{% if user.is_authenticated %}
 <div class="category-list">
     <h1>Select a Category</h1>
     <ul class="list-group">
@@ -12,6 +13,15 @@
         <li class="list-group-item"><a href="/category/automobile">Automobile</a></li>
     </ul>
 </div>
+{% else %}
+<div class="header" style="text-align: center; margin-top: 15px;">
+    <h2>Not authenticated</h2>
+    <a class="btn btn-warning btn-lg" href="/login/" role="button"
+        style="margin-top: 15px;">Log In</a>
+    <a class="btn btn-outline-warning btn-lg" href="/register/" role="button"
+        style="margin-top: 15px;">Register</a>
+</div>
+{% endif %}
 
 <style>
     .category-list {

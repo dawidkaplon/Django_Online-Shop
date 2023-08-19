@@ -11,17 +11,28 @@
         <div class="card mb-3">
             <div class="row g-0">
                 <div class="col-md-4">
-                    <img src="{{ cart_item.image.url }}" alt="Item Image" class="img-fluid card-img" style="height: 180px;">
+                    <img src="{{ cart_item.image.url }}" alt="Item Image"
+                        class="img-fluid card-img" style="height: 180px;">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
                         <h5 class="card-title">{{ cart_item.item.name }}</h5>
                         <div class="input-group mb-3">
-                            <button type="submit" name="{{ cart_item.item.name }}_save" class="btn btn-outline-success" style="text-align: end;">Save</button>
-                            <input type="number" name="{{ cart_item.item.name }}_quantity" class="form-control" value="{{ cart_item.quantity }}">
-                            <button type="submit" name="{{ cart_item.item.name }}_remove" class="btn btn-outline-danger">Remove</button>
+                            <button type="submit"
+                                name="{{ cart_item.item.name }}_save"
+                                class="btn btn-outline-success"
+                                style="text-align: end;">Save</button>
+                            <input type="number"
+                                name="{{ cart_item.item.name }}_quantity"
+                                class="form-control"
+                                value="{{ cart_item.quantity }}">
+                            <button type="submit"
+                                name="{{ cart_item.item.name }}_remove"
+                                class="btn btn-outline-danger">Remove</button>
                         </div>
-                        <a href="/user/{{ cart_item.user.id }}" class="user-link">
+                        <a href="/user/{{ cart_item.user.id }}"
+                            class="user-link"
+                            style="font-size: small; margin-top: 10px;">
                             <span>Offered by:</span>
                             <span>{{ cart_item.user }}</span>
                         </a>
@@ -40,10 +51,12 @@
 </div>
 
 <div class="container text-center mt-4">
-    <a href="/category/automobile" class="btn btn-outline-warning buy-button">Continue Shopping</a>
+    <a href="/category/automobile" class="btn btn-outline-warning buy-button">Continue
+        Shopping</a>
     {% if not cart_items|length == 0 %}
     <button type="button" class="btn btn-warning buy-button">Buy and Pay</button>
     {% endif %}
+    <h5>&nbsp;</h5>
 </div>
 
 <style>

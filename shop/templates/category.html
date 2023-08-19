@@ -3,32 +3,34 @@
 {% block title %}{{category.capitalize}}{% endblock %}
 
 {% block content %}
+{% if user.is_authenticated %}
 {% if category == 'sport' %}
 <div class="row row-cols-1 row-cols-md-4 g-4">
     {% if sport_items|length == 0 %}
     <div class="col-12 text-center" style="margin-left: 37%; margin-top: 3%;">
-        <h1>Oops, nothing in there!  </h1>
+        <h1>Oops, nothing in there! </h1>
         <p><a href="/category/choose" class="btn btn-warning explore-button">Explore</a></p>
     </div>
     {% else %}
-        {% for item in sport_items %}
-            <div class="col">
-                <div class="card shadow-sm">
-                    <div class="card-img-container">
-                        <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }}" style="height: 180px;">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">{{ item.name }}</h5>
-                        <p class="card-text item-price">${{ item.price }}</p>
-                        <a href="/user/{{ item.user.id }}" class="user-link">
-                            <span>Offered by:</span>
-                            <span>{{ item.user }}</span>
-                        </a>
-                        <a href="/offer/{{ item.id }}" class="btn btn-warning">VISIT</a>
-                    </div>
-                </div>
+    {% for item in sport_items %}
+    <div class="col">
+        <div class="card shadow-sm">
+            <div class="card-img-container">
+                <img src="{{ item.image.url }}" class="card-img-top"
+                    alt="{{ item.name }}" style="height: 180px;">
             </div>
-        {% endfor %}
+            <div class="card-body">
+                <h5 class="card-title">{{ item.name }}</h5>
+                <p class="card-text item-price">${{ item.price }}</p>
+                <a href="/user/{{ item.user.id }}" class="user-link">
+                    <span>Offered by:</span>
+                    <span>{{ item.user }}</span>
+                </a>
+                <a href="/offer/{{ item.id }}" class="btn btn-warning">VISIT</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
     {% endif %}
 </div>
 {% endif %}
@@ -36,27 +38,28 @@
 <div class="row row-cols-1 row-cols-md-4 g-4">
     {% if electronics_items|length == 0 %}
     <div class="col-12 text-center" style="margin-left: 37%; margin-top: 3%;">
-        <h1>Oops, nothing in there!  </h1>
+        <h1>Oops, nothing in there! </h1>
         <p><a href="/category/choose" class="btn btn-warning explore-button">Explore</a></p>
     </div>
     {% else %}
     {% for item in electronics_items %}
-        <div class="col">
-            <div class="card shadow-sm">
-                <div class="card-img-container">
-                    <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }}" style="height: 180px;">
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">{{ item.name }}</h5>
-                    <p class="card-text item-price">${{ item.price }}</p>
-                    <a href="/user/{{ item.user.id }}" class="user-link">
-                        <span>Offered by:</span>
-                        <span>{{ item.user }}</span>
-                    </a>
-                    <a href="/offer/{{ item.id }}" class="btn btn-warning">VISIT</a>
-                </div>
+    <div class="col">
+        <div class="card shadow-sm">
+            <div class="card-img-container">
+                <img src="{{ item.image.url }}" class="card-img-top"
+                    alt="{{ item.name }}" style="height: 180px;">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{ item.name }}</h5>
+                <p class="card-text item-price">${{ item.price }}</p>
+                <a href="/user/{{ item.user.id }}" class="user-link">
+                    <span>Offered by:</span>
+                    <span>{{ item.user }}</span>
+                </a>
+                <a href="/offer/{{ item.id }}" class="btn btn-warning">VISIT</a>
             </div>
         </div>
+    </div>
     {% endfor %}
     {% endif %}
 </div>
@@ -65,27 +68,28 @@
 <div class="row row-cols-1 row-cols-md-4 g-4">
     {% if fashion_items|length == 0 %}
     <div class="col-12 text-center" style="margin-left: 37%; margin-top: 3%;">
-        <h1>Oops, nothing in there!  </h1>
+        <h1>Oops, nothing in there! </h1>
         <p><a href="/category/choose" class="btn btn-warning explore-button">Explore</a></p>
     </div>
     {% else %}
     {% for item in fashion_items %}
-        <div class="col">
-            <div class="card shadow-sm">
-                <div class="card-img-container">
-                    <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }}" style="height: 180px;">
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">{{ item.name }}</h5>
-                    <p class="card-text item-price">${{ item.price }}</p>
-                    <a href="/user/{{ item.user.id }}" class="user-link">
-                        <span>Offered by:</span>
-                        <span>{{ item.user }}</span>
-                    </a>
-                    <a href="/offer/{{ item.id }}" class="btn btn-warning">VISIT</a>
-                </div>
+    <div class="col">
+        <div class="card shadow-sm">
+            <div class="card-img-container">
+                <img src="{{ item.image.url }}" class="card-img-top"
+                    alt="{{ item.name }}" style="height: 180px;">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{ item.name }}</h5>
+                <p class="card-text item-price">${{ item.price }}</p>
+                <a href="/user/{{ item.user.id }}" class="user-link">
+                    <span>Offered by:</span>
+                    <span>{{ item.user }}</span>
+                </a>
+                <a href="/offer/{{ item.id }}" class="btn btn-warning">VISIT</a>
             </div>
         </div>
+    </div>
     {% endfor %}
     {% endif %}
 </div>
@@ -94,29 +98,39 @@
 <div class="row row-cols-1 row-cols-md-4 g-4">
     {% if automobile_items|length == 0 %}
     <div class="col-12 text-center" style="margin-left: 37%; margin-top: 3%;">
-        <h1>Oops, nothing in there!  </h1>
+        <h1>Oops, nothing in there! </h1>
         <p><a href="/category/choose" class="btn btn-warning explore-button">Explore</a></p>
     </div>
     {% else %}
     {% for item in automobile_items %}
-        <div class="col">
-            <div class="card shadow-sm">
-                <div class="card-img-container">
-                    <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }}" style="height: 180px;">
-                    <p class="item-price">${{ item.price }}</p>
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">{{ item.name }}</h5>
-                    <a href="/user/{{ item.user.id }}" class="user-link">
-                        <span>Offered by:</span>
-                        <span>{{ item.user }}</span>
-                    </a>
-                    <a href="/offer/{{ item.id }}" class="btn btn-warning">VISIT</a>
-                </div>
+    <div class="col">
+        <div class="card shadow-sm">
+            <div class="card-img-container">
+                <img src="{{ item.image.url }}" class="card-img-top"
+                    alt="{{ item.name }}" style="height: 180px;">
+                <p class="item-price">${{ item.price }}</p>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{ item.name }}</h5>
+                <a href="/user/{{ item.user.id }}" class="user-link">
+                    <span>Offered by:</span>
+                    <span>{{ item.user }}</span>
+                </a>
+                <a href="/offer/{{ item.id }}" class="btn btn-warning">VISIT</a>
             </div>
         </div>
+    </div>
     {% endfor %}
     {% endif %}
+</div>
+{% endif %}
+{% else %}
+<div class="header" style="text-align: center; margin-top: 15px;">
+    <h2>Not authenticated</h2>
+    <a class="btn btn-warning btn-lg" href="/login/" role="button"
+        style="margin-top: 15px;">Log In</a>
+    <a class="btn btn-outline-warning btn-lg" href="/register/" role="button"
+        style="margin-top: 15px;">Register</a>
 </div>
 {% endif %}
 

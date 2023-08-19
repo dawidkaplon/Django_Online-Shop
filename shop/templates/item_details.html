@@ -3,6 +3,7 @@
 {% block title %}{{ item.name }} - Professional Shop{% endblock %}
 
 {% block content %}
+{% if user.is_authenticated %}
 <div class="container mt-4">
     <div class="row">
         <div class="col-md-6">
@@ -10,13 +11,15 @@
                 <div class="item-name-bg">
                     <h1 class="item-name">{{ item.name }}</h1>
                 </div>
-                <img src="{{ item.image.url }}" alt="Item Image" class="item-image">
+                <img src="{{ item.image.url }}" alt="Item Image"
+                    class="item-image">
             </div>
         </div>
         <div class="col-md-6">
             <div class="item-info">
                 <div class="company-name">
-                    <a href='/user/{{item.user.id}}' class="card-text item-description">by: {{ item.user }}</a>
+                    <a href='/user/{{item.user.id}}'
+                        class="card-text item-description">by: {{ item.user }}</a>
                 </div>
                 <div class="divider"></div>
                 <div class="item-price">${{ item.price }}</div>
@@ -26,11 +29,13 @@
                     {% if not item.user == request.user %}
                     <div class="buttons">
                         <button class="btn btn-warning" name="add">Add to Cart</button>
-                        <button class="btn btn-outline-warning" name="buy">Buy Now</button>
+                        <button class="btn btn-outline-warning" name="buy">Buy
+                            Now</button>
                     </div>
                     {% else %}
                     <div class="buttons">
-                    <button class="btn btn-warning" name="edit">Edit an Offer</button>
+                        <button class="btn btn-warning" name="edit">Edit an
+                            Offer</button>
                     </div>
                     {% endif %}
                 </form>
@@ -49,6 +54,15 @@
         </div>
     </div>
 </div>
+{% else %}
+<div class="header" style="text-align: center; margin-top: 15px;">
+    <h2>Not authenticated</h2>
+    <a class="btn btn-warning btn-lg" href="/login/" role="button"
+        style="margin-top: 15px;">Log In</a>
+    <a class="btn btn-outline-warning btn-lg" href="/register/" role="button"
+        style="margin-top: 15px;">Register</a>
+</div>
+{% endif %}
 
 <style>
     .item-name-bg {
