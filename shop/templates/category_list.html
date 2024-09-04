@@ -7,10 +7,9 @@
 <div class="category-list">
     <h1>Select a Category</h1>
     <ul class="list-group">
-        <li class="list-group-item"><a href="/category/sport">Sport</a></li>
-        <li class="list-group-item"><a href="/category/electronics">Electronics</a></li>
-        <li class="list-group-item"><a href="/category/fashion">Fashion</a></li>
-        <li class="list-group-item"><a href="/category/automobile">Automobile</a></li>
+        {% for category in categories %}
+        <li class="list-group-item"><a href="{% url "category_page" category.name %}">{{category.name}}</a></li>
+        {% endfor %}
     </ul>
 </div>
 {% else %}
