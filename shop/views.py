@@ -1,33 +1,32 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
 
 from .forms import NewOfferForm, EditOfferForm
-from .models import Item, Cart, CartItem
+from .models import Item, Cart, CartItem, Category
 
 # Create your views here.
-
+categories= Category.objects.all()
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'index.html', {'categories':categories})
 
 
 def error404(request):
     return render(request, 'error.html')
 
 
-def category(request, category):
-    sport_items = Item.objects.filter(category='Sport')
-    fashion_items = Item.objects.filter(category='Fashion')
-    electronics_items = Item.objects.filter(category='Electronics')
-    automobile_items = Item.objects.filter(category='Automobile')
+def category(request, category_name):
+    category_id = get_object_or_404(Category, name=category_name)
+    category_items = Item.objects.filter(category=category_id)
 
     return render(request, 'category.html',
                   {
-                      'category': category, 'sport_items': sport_items, 'fashion_items': fashion_items,
-                      'electronics_items': electronics_items, 'automobile_items': automobile_items
+                    'categories':categories,
+                    'category': category_name,
+                    'category_items':category_items,
                   })
 
 
@@ -40,8 +39,8 @@ def add_offer(request):
             name = form.cleaned_data['name']
             description = form.cleaned_data['description']
             price = form.cleaned_data['price']
-            categ_num = form.cleaned_data['category']
-            category = NewOfferForm.CATEGORIES[int(categ_num) - 1][1]
+            categ_id= form.cleaned_data['category']
+            category= Category.objects.get(id=categ_id)
             image = request.FILES.get('image')
             item = Item(user=user, name=name, description=description,
                         price=price, category=category, image=image)
@@ -50,7 +49,7 @@ def add_offer(request):
             return redirect(f'/offer/{item.id}')
         else:
             form = NewOfferForm()
-    return render(request, 'add_offer.html', {'form': form})
+    return render(request, 'add_offer.html', {'form': form,'categories':categories})
 
 def edit_offer(request, id):
     item = Item.objects.get(id=id)
@@ -67,9 +66,9 @@ def edit_offer(request, id):
             name = form.cleaned_data['name']
             description = form.cleaned_data['description']
             price = form.cleaned_data['price']
-            categ_num = form.cleaned_data['category']
-            if categ_num:
-                category = NewOfferForm.CATEGORIES[int(categ_num) - 1][1]
+            categ_id = form.cleaned_data['category']
+            if categ_id:
+                category = Category.objects.get(id=categ_id)
                 item.category = category
             
             """Don't change value if user didn't change it in edit window"""
@@ -91,7 +90,7 @@ def edit_offer(request, id):
         else:
             form = EditOfferForm(item=item)
 
-    return render(request, 'edit_offer.html', {'item': item, 'form': form})
+    return render(request, 'edit_offer.html', {'item': item, 'form': form, 'categories':categories})
 
 
 
@@ -114,7 +113,7 @@ def view(request, id):
     if request.method == 'POST' and 'edit' in request.POST:
         return redirect(f'/offer/{id}/edit')
 
-    return render(request, 'item_details.html', {'item': item})
+    return render(request, 'item_details.html', {'item': item, 'categories':categories,})
 
 
 @login_required
@@ -156,7 +155,7 @@ def cart(request):
                     cart.save()
                     return redirect('/cart/')
                 
-    return render(request, 'cart.html', {'cart': cart, 'cart_items': cart_items})
+    return render(request, 'cart.html', {'cart': cart, 'cart_items': cart_items, 'categories':categories,})
 
 def user_view(request, id):  
     current_user = request.user
@@ -172,7 +171,7 @@ def user_view(request, id):
                     return redirect(f'/user/{user.id}')
         
         if request.user.is_authenticated:
-            return render(request, 'user.html', {'user': user, 'current_user': current_user, 'items': items})
+            return render(request, 'user.html', {'user': user, 'current_user': current_user, 'items': items, 'categories':categories,})
         else:
             return redirect('/404/')
     
@@ -180,7 +179,8 @@ def user_view(request, id):
         raise Http404
     
 def category_list(request):
-    return render(request, 'category_list.html')
+
+    return render(request, 'category_list.html', {'categories':categories,})
 
 def search_results(request):
     searched = request.POST['searched']
@@ -190,6 +190,6 @@ def search_results(request):
         for item in items:
             if searched.lower() in item.name.lower():
                 items_list.append(item)
-        return render(request, 'search_results.html', {'searched': searched, 'items_list':items_list})
+        return render(request, 'search_results.html', {'searched': searched, 'items_list':items_list, 'categories':categories,})
     else:
         return render(request, 'search_results.html')

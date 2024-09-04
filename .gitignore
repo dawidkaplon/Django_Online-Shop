@@ -4,3 +4,6 @@ db.sqlite3
 media
 migrations/
 __pycache__
+venv/pyvenv.cfg
+auto_run
+*.py[cod]

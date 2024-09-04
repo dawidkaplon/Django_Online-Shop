@@ -9,8 +9,20 @@ class Item(models.Model):
     name = models.CharField(max_length=50, default="")
     description = models.TextField(default="")
     price = models.FloatField(null=True, blank=True)
-    category = models.TextField(default="")
+    category = models.ForeignKey("shop.Category", on_delete=models.CASCADE, null=True, blank=True)
     image = models.ImageField(upload_to="item_images/")
+
+    def __str__(self):
+        return self.name
+
+class Category(models.Model):
+    name = models.CharField(max_length=50)
+    description = models.TextField(default="")
+    
+
+    class Meta:
+        verbose_name = ("Category")
+        verbose_name_plural = ("Categories")
 
     def __str__(self):
         return self.name

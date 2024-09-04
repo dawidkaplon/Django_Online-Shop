@@ -96,8 +96,13 @@
                                 style="padding-right: 25px;">
                                 Cart
                                 <span class="badge bg-warning"
-                                    style="border-radius: 50%; color: black;">{{
-                                    cart_item_count }}</span>
+                                    style="border-radius: 50%; color: black;">
+                                    {% if cart_item_count %} 
+                                        {{cart_item_count }} 
+                                    {% else %} 
+                                        0 
+                                    {% endif %}
+                                </span>
                             </a>
                         </li>
                         <li class="nav-item dropdown"
@@ -151,17 +156,11 @@
                                 Categories
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item"
-                                        href="/category/electronics/">Electronics</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item"
-                                        href="/category/fashion/">Fashion</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item"
-                                        href="/category/sport/">Sport</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item"
-                                        href="/category/automobile/">Automobile</a></li>
+                                {% for category_list in categories %}
+                                    <li><a class="dropdown-item"
+                                            href="{% url "category_page" category_list.name %}">{{category_list.name}}</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                {% endfor %}
                             </ul>
                         </li>
                     </ul>
